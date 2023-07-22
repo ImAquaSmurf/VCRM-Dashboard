@@ -1,4 +1,4 @@
---CUSTOM CLAIMS FUNCTIONS
+--CUSTOM CLAIMS FUNCTIONS 
 --https://github.com/supabase-community/supabase-custom-claims/blob/main/install.sql
 CREATE OR REPLACE FUNCTION is_claims_admin() RETURNS "bool"
   LANGUAGE "plpgsql" 

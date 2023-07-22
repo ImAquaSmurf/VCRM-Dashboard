@@ -1,184 +1,71 @@
-<div class="alert alert-info shadow-lg mb-5">
-	<div>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			class="stroke-current flex-shrink-0 h-6 w-6"
-			fill="none"
-			viewBox="0 0 24 24"
-			><path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="2"
-				d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-			/></svg
-		>
-		<span
-			><a href="https://daisyui.com/components/table/">DaisyUI</a> table example with static data</span
-		>
-	</div>
-</div>
+<script lang="ts">
+	import type { PageData } from './$types';
+	export let data: PageData;
 
-<div class="card flex-col lg:flex-row bg-base-300 shadow-xl">
-	<div class="overflow-x-auto w-full scrollbar-thin scrollbar-thumb-gray-400 overflow-y-scroll">
-		<table class="table w-full">
-			<!-- head -->
-			<thead>
+	$: ({ vcrm } = data);
+
+	let isModalOpen = false;
+	const openModal = () => (isModalOpen = true);
+</script>
+
+<div class="overflow-x-auto">
+	<table class="table table-zebra">
+		<thead>
+			<tr>
+				<th>Info</th>
+				<th>Requirement</th>
+				<th>Compliance Status</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each vcrm as row}
 				<tr>
-					<th>
-						<label>
-							<input type="checkbox" class="checkbox" />
-						</label>
-					</th>
-					<th>Name</th>
-					<th>Job</th>
-					<th>Favorite Color</th>
-					<th />
+					<td class="text-center max-w-[30ch] whitespace-normal">
+						{row['TAS ID']}
+						{'\n'}
+						{row['Design Package']}
+						{'\n'}
+						{row['Integration Level']}
+					</td>
+					<td class="text-center max-w-[100ch] whitespace-normal">{row['Requirement']}</td>
+					<td class="text-center max-w-[4ch] whitespace-normal">{row['Compliance Status']}</td>
+					<td class="text-center">
+						<button class="btn btn-primary" on:click={openModal}>Open Modal</button>
+					</td>
 				</tr>
-			</thead>
-			<tbody>
-				<!-- row 1 -->
-				<tr>
-					<th>
-						<label>
-							<input type="checkbox" class="checkbox" />
-						</label>
-					</th>
-					<td>
-						<div class="flex items-center space-x-3">
-							<div class="avatar">
-								<div class="mask mask-squircle w-12 h-12">
-									<img
-										src="https://placeimg.com/64/64/people"
-										alt="Avatar Tailwind CSS Component"
-									/>
-								</div>
-							</div>
-							<div>
-								<div class="font-bold">Hart Hagerty</div>
-								<div class="text-sm opacity-50">United States</div>
-							</div>
+			{/each}
+		</tbody>
+	</table>
+	{#if isModalOpen}
+		<div
+			class="fixed z-10 inset-0 overflow-y-auto"
+			aria-labelledby="modal-title"
+			role="dialog"
+			aria-modal="true"
+		>
+			<div
+				class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+			>
+				<div
+					class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+					aria-hidden="true"
+				/>
+				<span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"
+					>&#8203;</span
+				>
+				<div class="modal modal-open">
+					<div class="modal-box">
+						<h2 class="text-xl" id="modal-title">Modal Title</h2>
+						<div class="text-center">
+							<p class="text-sm text-gray-500">Modal content...</p>
 						</div>
-					</td>
-					<td>
-						Zemlak, Daniel and Leannon
-						<br />
-						<span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
-					</td>
-					<td>Purple</td>
-					<th>
-						<button class="btn btn-ghost btn-xs">details</button>
-					</th>
-				</tr>
-				<!-- row 2 -->
-				<tr>
-					<th>
-						<label>
-							<input type="checkbox" class="checkbox" />
-						</label>
-					</th>
-					<td>
-						<div class="flex items-center space-x-3">
-							<div class="avatar">
-								<div class="mask mask-squircle w-12 h-12">
-									<img
-										src="https://placeimg.com/64/64/people"
-										alt="Avatar Tailwind CSS Component"
-									/>
-								</div>
-							</div>
-							<div>
-								<div class="font-bold">Brice Swyre</div>
-								<div class="text-sm opacity-50">China</div>
-							</div>
+						<div class="modal-action">
+							<button class="btn" on:click={() => (isModalOpen = false)}>Close Modal</button>
 						</div>
-					</td>
-					<td>
-						Carroll Group
-						<br />
-						<span class="badge badge-ghost badge-sm">Tax Accountant</span>
-					</td>
-					<td>Red</td>
-					<th>
-						<button class="btn btn-ghost btn-xs">details</button>
-					</th>
-				</tr>
-				<!-- row 3 -->
-				<tr>
-					<th>
-						<label>
-							<input type="checkbox" class="checkbox" />
-						</label>
-					</th>
-					<td>
-						<div class="flex items-center space-x-3">
-							<div class="avatar">
-								<div class="mask mask-squircle w-12 h-12">
-									<img
-										src="https://placeimg.com/64/64/people"
-										alt="Avatar Tailwind CSS Component"
-									/>
-								</div>
-							</div>
-							<div>
-								<div class="font-bold">Marjy Ferencz</div>
-								<div class="text-sm opacity-50">Russia</div>
-							</div>
-						</div>
-					</td>
-					<td>
-						Rowe-Schoen
-						<br />
-						<span class="badge badge-ghost badge-sm">Office Assistant I</span>
-					</td>
-					<td>Crimson</td>
-					<th>
-						<button class="btn btn-ghost btn-xs">details</button>
-					</th>
-				</tr>
-				<!-- row 4 -->
-				<tr>
-					<th>
-						<label>
-							<input type="checkbox" class="checkbox" />
-						</label>
-					</th>
-					<td>
-						<div class="flex items-center space-x-3">
-							<div class="avatar">
-								<div class="mask mask-squircle w-12 h-12">
-									<img
-										src="https://placeimg.com/64/64/people"
-										alt="Avatar Tailwind CSS Component"
-									/>
-								</div>
-							</div>
-							<div>
-								<div class="font-bold">Yancy Tear</div>
-								<div class="text-sm opacity-50">Brazil</div>
-							</div>
-						</div>
-					</td>
-					<td>
-						Wyman-Ledner
-						<br />
-						<span class="badge badge-ghost badge-sm">Community Outreach Specialist</span>
-					</td>
-					<td>Indigo</td>
-					<th>
-						<button class="btn btn-ghost btn-xs">details</button>
-					</th>
-				</tr>
-			</tbody>
-			<!-- foot -->
-			<tfoot>
-				<tr>
-					<th />
-					<th>Name</th>
-					<th>Job</th>
-					<th>Favorite Color</th>
-					<th />
-				</tr>
-			</tfoot>
-		</table>
-	</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
 </div>
